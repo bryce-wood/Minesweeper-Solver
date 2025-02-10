@@ -2,8 +2,8 @@ package game;
 
 public class Board {
     private int[][] board;
-    public int size;
-    public int numBombs;
+    private int size;
+    private int numBombs;
 
     public Board(int size, int numBombs) {
         // Error Handling
@@ -51,6 +51,14 @@ public class Board {
                 }
             }
         }
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public int getNumBombs() {
+        return numBombs;
     }
 
     public String toString() {
