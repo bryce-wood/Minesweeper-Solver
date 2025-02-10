@@ -61,6 +61,50 @@ public class Board {
         return numBombs;
     }
 
+    public int evaluateTile(int x, int y) {
+        // Error Handling
+        if (x < 0 || x >= size || y < 0 || y >= size) {
+            throw new IllegalArgumentException("Invalid coordinates");
+        }
+
+        int numBombs = 0;
+        // if it is a bomb, return -1
+        if (board[x][y] == 1) return -1;
+        // otherwise, return the number of bombs around it
+        // check the 3 to the left
+        if (x > 0) {
+            if (board[x-1][y] == 1) numBombs++;
+            if (y > 0 && board[x-1][y-1] == 1) numBombs++;
+            if (y < size-1 && board[x-1][y+1] == 1) numBombs++;
+        }
+        // check the 3 to the right
+        if (x < size-1) {
+            if (board[x+1][y] == 1) numBombs++;
+            if (y > 0 && board[x+1][y-1] == 1) numBombs++;
+            if (y < size-1 && board[x+1][y+1] == 1) numBombs++;
+        }
+        // check the 1 above
+        if (y > 0 && board[x][y-1] == 1) numBombs++;
+        // check the 1 below
+        if (y < size-1 && board[x][y+1] == 1) numBombs++;
+
+        return numBombs;
+    }
+
+    public void printCompleteBoard() {
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                int thisTile = evaluateTile(x, y);
+                if (thisTile == -1) {
+                    System.out.print("X ");
+                } else {
+                    System.out.print(thisTile + " ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
     public String toString() {
         String returnString = "";
         for (int x = 0; x < size; x++) {
